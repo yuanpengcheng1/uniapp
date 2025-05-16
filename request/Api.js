@@ -63,4 +63,132 @@ export function uploadAvatar(filePath, uid) {
     });
 }
 
+export function listByType(type) {
+    return uni.request({
+        url: base_url + '/history/listByType',
+        method: 'GET',
+        data: {
+            type: type
+        },
+        header: {
+            "Content-Type": "application/json;charset=utf-8"
+        }
+    });
+}
 
+/**
+ * 根据事件ID获取评论列表
+ * @param {number} eventId - 事件ID
+ * @returns {Promise}
+ */
+export function getCommentsByEventId(eventId) {
+  return uni.request({
+    url: base_url + '/comment/listByEvent', // 对应后端的 /comment/listByEvent 接口
+    method: 'GET',
+    data: {
+      eventId: eventId, // 将 eventId 放在 data 中
+    },
+    header: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
+}
+
+/**
+ * 添加评论
+ * @param {object} comment - 评论对象，包含 eventId, content, parentId 等
+ * @returns {Promise}
+ */
+export function addComment(comment) {
+  return request({ // 使用封装后的 request
+    url: '/comment/add', // 对应后端的 /comment/add 接口
+    method: 'POST',
+    data: comment,
+    header: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
+}
+
+/**
+ * 点赞评论
+ * @param {number} commentId - 评论ID
+ * @returns {Promise}
+ */
+export function likeComment(data) {
+  return request({
+    url: '/comment/like',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: JSON.stringify(data),
+  });
+}
+
+/**
+ * 删除评论
+ * @param {number} id - 评论ID
+ * @returns {Promise}
+ */
+export function deleteComment(id) {
+  return uni.request({
+    url: base_url + '/comment/delete?id=' + id, 
+    method: 'DELETE',
+    header: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
+}
+/**
+ * 获取带有用户昵称的评论列表
+ * @param {number} eventId - 事件ID
+ * @returns {Promise}
+ */
+export function getCommentsWithUser(eventId) {
+  return uni.request({
+    url: base_url + '/comment/listWithUser',
+    method: 'GET',
+    data: {
+      eventId: eventId,
+    },
+    header: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
+}
+/**
+  * 获取评论列表
+  * @param {number} eventId -  事件ID
+  * @returns {Promise}
+  */
+export function getCommentList(eventId) {
+  return uni.request({
+    url: base_url + '/comment/list',
+    method: 'GET',
+    data: {
+      eventId,
+    },
+    header: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
+}
+/**
+ * 获取带有用户昵称的评论列表（用于楼中楼）
+ * @param {number} eventId - 事件ID
+ * @returns {Promise}
+ */
+// 仅传 eventId，不传对象
+export function getCommentsByEventIdWithUser(eventId) {
+  return uni.request({
+    url: base_url + '/comment/listWithUser',  // 👈 确保和后端一致
+    method: 'GET',
+    data: {
+      eventId: eventId,  // 👈 只传 eventId
+    },
+    header: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
+}

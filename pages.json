@@ -13,6 +13,11 @@
       }
     },
 	{
+		"path": "pages/list/comment",
+		 "navigationBarTitleText": "文章"
+	}
+	,
+	{
 		"path": "pages/local/local",
 		"style": {
 			"navigationBarTitleText": "城区管理"
@@ -66,7 +71,7 @@
         "pagePath": "pages/list/list",
         "iconPath": "/static/images/main/icons-main.png",
         "selectedIconPath": "/static/images/main/icons-main-s.png",
-        "text": "历史"
+        "text": "历史讲堂"
       },
       {
         "pagePath": "pages/me/me",

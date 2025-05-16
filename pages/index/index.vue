@@ -1,14 +1,11 @@
 <template>
   <view class="home-container">
-    <!-- 顶部区域 -->
-    <!-- 可以根据需要替换成搜索框等 -->
     <view class="header">
       <text class="header-title">蓉城发展概览</text>
-    
-      <!-- <view class="search-box">
+      <view class="search-box">
         <input class="search-input" placeholder="搜索历史、地标、规划..." />
         <image src="/static/icons/search.png" class="search-icon"></image>
-      </view> -->
+      </view>
     </view>
 
     <swiper
@@ -24,7 +21,6 @@
       </swiper-item>
     </swiper>
 
-    <!-- 快捷功能模块 -->
     <view class="section-block">
       <view class="function-grid">
         <view
@@ -33,497 +29,565 @@
           :key="index"
           @click="navigateTo(item.url)"
         >
-          <!-- 图标背景 -->
           <view class="icon-wrapper">
-             <image :src="item.icon" class="icon" mode="aspectFit" />
+            <image :src="item.icon" class="icon" mode="aspectFit" />
           </view>
           <text class="label">{{ item.label }}</text>
         </view>
       </view>
     </view>
 
-
-    <!-- 历史发展主题模块 (模仿行程攻略) -->
     <view class="section-block">
-       <view class="section-title">
-          <text>历史发展主题</text>
-          <text class="section-more">全部 ></text>
-       </view>
-       <scroll-view class="theme-cards-scroll" scroll-x>
-          <view class="theme-card" v-for="(item, index) in historyThemes" :key="index" @click="navigateTo(item.url)">
-             <image :src="item.imgUrl" class="card-img" mode="aspectFill"></image>
-             <view class="card-text">
-                 <text class="card-title">{{ item.title }}</text>
-                 <text class="card-subtitle">{{ item.subtitle }}</text>
-             </view>
+      <view class="section-title">
+        <text>历史发展主题</text>
+        <text class="section-more">全部 ></text>
+      </view>
+      <scroll-view class="theme-cards-scroll" scroll-x>
+        <view
+          class="theme-card"
+          v-for="(item, index) in historyThemes"
+          :key="index"
+          @click="navigateTo(item.url)"
+        >
+          <image :src="item.imgUrl" class="card-img" mode="aspectFill"></image>
+          <view class="card-text">
+            <text class="card-title">{{ item.title }}</text>
+            <text class="card-subtitle">{{ item.subtitle }}</text>
           </view>
-       </scroll-view>
+        </view>
+      </scroll-view>
     </view>
 
-    <!-- 发展数据快览模块 -->
     <view class="section-block">
-       <view class="section-title">
-          <text>发展数据快览</text>
-          <!-- 将这里的text改为可点击，并绑定 navigateToChartsPage 方法 -->
-          <text class="section-more" @click="navigateToChartsPage">更多 ></text>
-       </view>
-       <view class="data-overview-card">
-           <view class="data-item">
-               <text class="data-value">2100万+</text>
-               <text class="data-label">常住人口 (2024)</text>
-           </view>
-            <view class="data-item">
-               <text class="data-value">2.3万亿+</text>
-               <text class="data-label">GDP (2024)</text>
-           </view>
-           <!-- 可以添加更多数据项 -->
-       </view>
+      <view class="section-title">
+        <text>发展数据快览</text>
+        <text class="section-more" @click="navigateToChartsPage">全部 ></text>
+      </view>
+      <view class="data-overview-card">
+        <view class="data-item">
+          <text class="data-value">2100万+</text>
+          <text class="data-label">常住人口 (2024)</text>
+        </view>
+        <view class="data-item">
+          <text class="data-value">2.3万亿+</text>
+          <text class="data-label">GDP (2024)</text>
+        </view>
+        </view>
     </view>
 
-     <!-- 重点建设成果模块 (简化为列表) -->
     <view class="section-block">
-       <view class="section-title">
-          <text>重点建设成果</text>
-          <text class="section-more">更多 ></text>
-       </view>
-       <view class="construction-list">
-           <view class="construction-item" v-for="(item, index) in constructionList" :key="index" @click="navigateTo(item.url)">
-               <text class="item-label">{{ item.label }}</text>
-               <text class="item-arrow">></text>
-           </view>
-       </view>
+      <view class="section-title">
+        <text>重点建设成果</text>
+        <text class="section-more">更多 ></text>
+      </view>
+      <view class="construction-list">
+        <view
+          class="construction-item"
+          v-for="(item, index) in constructionList"
+          :key="index"
+          @click="navigateTo(item.url)"
+        >
+          <text class="item-label">{{ item.label }}</text>
+          <text class="item-arrow">></text>
+        </view>
+      </view>
     </view>
 
-
-     <!-- 历史文化讲堂模块 (简化为列表) -->
     <view class="section-block">
-       <view class="section-title">
-          <text>历史文化讲堂</text>
-          <text class="section-more">全部 ></text>
-       </view>
-        <view class="culture-list">
-           <view class="culture-item" v-for="(item, index) in cultureTopics" :key="index" @click="navigateTo(item.url)">
-              <image :src="item.imgUrl" class="culture-img" mode="aspectFill"></image>
-               <view class="culture-info">
-                   <text class="culture-title">{{ item.title }}</text>
-                   <text class="culture-source">{{ item.source }}</text>
-               </view>
-                <text class="item-arrow">></text>
-           </view>
-       </view>
+      <view class="section-title">
+        <text>历史文化讲堂</text>
+        <text class="section-more" @click="navigateToLecture">全部 ></text>
+      </view>
+      <view class="culture-list">
+        <view
+          class="culture-item"
+          v-for="(item, index) in cultureTopics"
+          :key="index"
+          @click="navigateTo(item.url)"
+        >
+          <image :src="item.imgUrl" class="culture-img" mode="aspectFill"></image>
+          <view class="culture-info">
+            <text class="culture-title">{{ item.title }}</text>
+            <text class="culture-source">{{ item.source }}</text>
+          </view>
+          <text class="item-arrow">></text>
+        </view>
+        <view v-if="cultureTopics.length === 0" class="no-data-tip">
+          <text>暂无历史文化讲堂信息</text>
+        </view>
+      </view>
     </view>
-
-
   </view>
 </template>
-
 <script>
+import { listByType } from '../../request/Api.js';
+
 export default {
   data() {
     return {
       banners: [
-        { imgUrl: '/static/images/banners/banner1.jpg' }, // 替换成符合发展主题的图片
+        { imgUrl: '/static/images/banners/banner1.jpg' },
         { imgUrl: '/static/images/banners/banner2.jpg' },
-        { imgUrl: '/static/images/banners/banner3.jpg' }
+        { imgUrl: '/static/images/banners/banner3.jpg' },
       ],
       functions: [
         {
           label: '城区管理',
-          icon: '/static/images/main/district-manage(已去底).png', // 替换图标
-          url: '/pages/district/manage'
+          icon: '/static/images/main/district-manage(已去底).png',
+          url: '/pages/district/manage',
         },
         {
           label: '发展历史',
-          icon: '/static/images/main/history-dev(已去底).png', // 替换图标
-          url: '/pages/history/manage' // 或跳转到展示页
+          icon: '/static/images/main/history-dev(已去底).png',
+          url: '/pages/history/manage',
         },
         {
-          label: '城市规划', // 新增功能
-          icon: '/static/images/main/city-plan(已去底).png', // 替换图标
-          url: '/pages/plan/index'
+          label: '城市规划',
+          icon: '/static/images/main/city-plan(已去底).png',
+          url: '/pages/plan/index',
         },
         {
-          label: '招商引资', // 新增功能
+          label: '招商引资',
           icon: '/static/images/main/invest(已去底).png',
-           url: '/pages/invest/index' // 为招商引资添加url
+          url: '/pages/invest/index',
         },
         {
-          label: '数据统计', // 新增功能
-          icon: '/static/images/main/data-stats(已去底).png', // 替换图标
-          url: '/pages/stats/index'
+          label: '数据统计',
+          icon: '/static/images/main/data-stats(已去底).png',
+          url: '/pages/stats/index',
         },
-         {
-          label: '政策法规', // 新增功能
-          icon: '/static/images/main/policy(已去底).png', // 替换图标
-          url: '/pages/policy/index'
+        {
+          label: '政策法规',
+          icon: '/static/images/main/policy(已去底).png',
+          url: '/pages/policy/index',
         },
-         {
-          label: '地标建筑', // 新增功能
-          icon: '/static/images/main/landmark(已去底).png', // 替换图标
-          url: '/pages/landmark/index'
+        {
+          label: '地标建筑',
+          icon: '/static/images/main/landmark(已去底).png',
+          url: '/pages/landmark/index',
         },
-         {
-          label: '历史文化', // 新增功能
-          icon: '/static/images/main/culture(已去底).png', // 替换图标
-          url: '/pages/culture/index'
+        {
+          label: '历史文化',
+          icon: '/static/images/main/culture(已去底).png',
+          url: '/pages/culture/index',
         },
       ],
-      historyThemes: [ // 历史发展主题数据
-          {
-              id: 1,
-              imgUrl: '/static/images/themes/theme1.jpg', // 替换图片 (如：金沙遗址图片)
-              title: '古蜀文明探源',
-              subtitle: '金沙遗址与宝墩文化',
-              url: '/pages/history/detail?id=1'
-          },
-           {
-              id: 2,
-              imgUrl: '/static/images/themes/theme2.jpg',
-              title: '秦汉筑城建都',
-              subtitle: '少城与大城格局初现',
-              url: '/pages/history/detail?id=2'
-          },
-           {
-              id: 3,
-              imgUrl: '/static/images/themes/theme3.jpg', // 替换图片 (如：唐宋商业街景)
-              title: '盛唐繁华都市',
-              subtitle: '扬一益二的商业传奇',
-              url: '/pages/history/detail?id=3'
-          },
-          // 添加更多主题...
+      historyThemes: [
+        {
+          id: 1,
+          imgUrl: '/static/images/themes/theme1.jpg',
+          title: '古蜀文明探源',
+          subtitle: '金沙遗址与宝墩文化',
+          url: '/pages/history/detail?id=1',
+        },
+        {
+          id: 2,
+          imgUrl: '/static/images/themes/theme2.jpg',
+          title: '秦汉筑城建都',
+          subtitle: '少城与大城格局初现',
+          url: '/pages/history/detail?id=2',
+        },
+        {
+          id: 3,
+          imgUrl: '/static/images/themes/theme3.jpg',
+          title: '盛唐繁华都市',
+          subtitle: '扬一益二的商业传奇',
+          url: '/pages/history/detail?id=3',
+        },
       ],
-      constructionList: [ // 重点建设成果数据
-          {
-              id: 1,
-              label: '天府国际机场建设',
-              url: '/pages/construction/detail?id=1'
-          },
-          {
-              id: 2,
-              label: '轨道交通线网扩张',
-              url: '/pages/construction/detail?id=2'
-          },
-           {
-              id: 3,
-              label: '东部新区发展蓝图',
-              url: '/pages/construction/detail?id=3'
-          },
-           {
-              id: 4,
-              label: '公园城市绿道建设',
-              url: '/pages/construction/detail?id=4'
-          },
-          // 添加更多项目...
+      constructionList: [
+        {
+          id: 1,
+          label: '天府国际机场建设',
+          url: '/pages/construction/detail?id=1',
+        },
+        {
+          id: 2,
+          label: '轨道交通线网扩张',
+          url: '/pages/construction/detail?id=2',
+        },
+        {
+          id: 3,
+          label: '东部新区发展蓝图',
+          url: '/pages/construction/detail?id=3',
+        },
+        {
+          id: 4,
+          label: '公园城市绿道建设',
+          url: '/pages/construction/detail?id=4',
+        },
       ],
-       cultureTopics: [ // 历史文化讲堂数据
-          {
-              id: 1,
-              imgUrl: '/static/images/culture/culture1.jpg', // 替换图片 (如：都江堰图片)
-              title: '都江堰的治水智慧',
-              source: '讲堂系列一',
-              url: '/pages/culture/detail?id=1'
-          },
-           {
-              id: 2,
-              imgUrl: '/static/images/culture/culture2.jpg', // 替换图片 (如：川剧变脸图片)
-              title: '川剧艺术的传承与发展',
-              source: '讲堂系列二',
-              url: '/pages/culture/detail?id=2'
-          },
-          // 添加更多讲堂...
-       ]
+      // 将 cultureTopics 初始化为空数组
+      cultureTopics: [],
+      selectedType: 'lecture', // 这个 selectedType 仍然用于 fetchHistoryEvents
     };
   },
+  onLoad() {
+    // 在页面加载时调用方法获取数据
+    this.fetchHistoryEvents();
+  },
   methods: {
+    fetchHistoryEvents() {
+      console.log('准备请求历史事件类型：', this.selectedType);
+      listByType(this.selectedType)
+        .then(res => {
+          console.log('接口完整返回：', res);
+          if (res && res.statusCode === 200 && res.data && res.data.code == 200) {
+            let result = res.data.data;
+            console.log('接口返回数据 (业务码 200)：', result);
+
+            if (result && Array.isArray(result) && result.length > 0) {
+              console.log('成功获取到讲堂数据:', result);
+
+              // 1. 使用 updateTime 字段进行排序
+              // 2. 按照 updateTime 降序排序（最新的在前面）
+              result.sort((a, b) => {
+                // 直接比较 Date 对象
+                if (a.updateTime && b.updateTime) {
+                  if (a.updateTime instanceof Date && b.updateTime instanceof Date) {
+                    return b.updateTime.getTime() - a.updateTime.getTime();
+                  } else {
+                    console.warn('updateTime is not a Date object', a.updateTime, b.updateTime);
+                    return 0;
+                  }
+                } else if (a.updateTime) {
+                  console.warn('b.updateTime is undefined', b);
+                  return -1;
+                } else if (b.updateTime) {
+                  console.warn('a.updateTime is undefined', a);
+                  return 1;
+                } else {
+                  return 0;
+                }
+              });
+
+              // 3. 截取最新的四条数据
+              const latestCultureTopics = result.slice(0, 4);
+
+              // 转换数据格式，匹配前端 cultureTopics 的结构
+              this.cultureTopics = latestCultureTopics.map(item => ({
+                id: item.id,
+                imgUrl: item.imgUrl,
+                title: item.title,
+                source: item.eventDate, // 后端的 eventDate 对应前端的 source
+                url: `/pages/culture/detail?id=${item.id}`,
+              }));
+
+              uni.setStorageSync('cultureTopics', this.cultureTopics);
+
+              uni.showToast({
+                title: '讲堂信息加载成功',
+                icon: 'success',
+              });
+            } else {
+              console.warn('业务码 200，但无匹配讲堂数据或数据格式不正确', res.data);
+              this.cultureTopics = [];
+              uni.setStorageSync('cultureTopics', []);
+              uni.showToast({
+                title: '未找到相关讲堂信息',
+                icon: 'none',
+              });
+            }
+          } else {
+            console.warn('接口返回业务错误或状态码非200:', res.data);
+            this.cultureTopics = [];
+            uni.setStorageSync('cultureTopics', []);
+            uni.showToast({
+              title: res.data && res.data.msg ? res.data.msg : '加载讲堂信息失败',
+              icon: 'none',
+            });
+          }
+        })
+        .catch(err => {
+          console.error('请求出错:', err);
+          this.cultureTopics = [];
+          uni.setStorageSync('cultureTopics', []);
+          uni.showToast({
+            title: '网络错误，无法加载讲堂信息',
+            icon: 'none',
+          });
+        });
+    },
     navigateTo(url) {
-      if(url) { // 避免空url跳转
-         uni.navigateTo({ url });
+      if (url) {
+        uni.navigateTo({ url });
       } else {
-          console.warn('Navigation URL is not defined for this item.');
-          // 可以给用户一个提示，比如 uni.showToast({ title: '功能待开放', icon: 'none' });
+        console.warn('Navigation URL is not defined for this item.');
       }
     },
-    // 新增方法：跳转到图表页面
     navigateToChartsPage() {
       uni.navigateTo({
-        url: '/pages/charts/index' // 指定新页面的路径
+        url: '/pages/charts/index',
       });
-    }
-  }
+    },
+    navigateToLecture() {
+      uni.switchTab({
+        url: '/pages/list/list',
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
 /* 全局背景 */
 .home-container {
-  background-color: #f5f5f5; /* 浅灰色背景 */
+  background-color: #f5f5f5;
   min-height: 100vh;
-  padding-bottom: 20px; /* 底部留白 */
+  padding-bottom: 20px;
 }
 
 /* 顶部区域样式 */
 .header {
-    padding: 15px 20px;
-    background-color: #ffffff; /* 白色背景 */
-    /* 可以根据需要调整颜色 */
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    margin-bottom: 15px; /* 与下方轮播图的间距 */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 标题居中 */
+  padding: 15px 20px;
+  background-color: #ffffff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .header-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 /* 搜索框样式 (如果启用) */
-/*
+
 .search-box {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    border-radius: 20px;
-    padding: 5px 10px;
-    margin-left: 15px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin-left: 15px;
 }
 .search-input {
-    flex: 1;
-    font-size: 14px;
-    margin-right: 5px;
+  flex: 1;
+  font-size: 14px;
+  margin-right: 5px;
 }
 .search-icon {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
-*/
 
-
+.no-data-tip {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 14px;
+}
 /* 轮播图样式 */
 .banner {
   height: 160px;
-  padding: 0 10px; /* 左右内边距，让圆角露出来 */
+  padding: 0 10px;
   box-sizing: border-box;
 }
 
 .banner-img {
   width: 100%;
   height: 100%;
-  border-radius: 12px; /* 圆角 */
-  object-fit: cover; /* 保持图片比例覆盖容器 */
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 /* Section 容器样式 (用于模块分组，提供统一的外边距和背景) */
 .section-block {
-    background-color: #fff;
-    margin: 15px 10px 0; /* 上、左右、下外边距 */
-    padding: 15px 10px; /* 内边距 */
-    border-radius: 12px; /* 圆角 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 轻微阴影 */
+  background-color: #fff;
+  margin: 15px 10px 0;
+  padding: 15px 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Section 标题样式 */
 .section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 10px; /* 标题与内容的间距 */
-    margin-bottom: 10px; /* 与下方内容的间距 */
-    border-bottom: 1px solid #eee; /* 分隔线 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 .section-title text:first-child {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }
 .section-more {
-    font-size: 12px;
-    color: #999;
-    /* 添加点击效果 */
-    /* 可以通过伪类 :active 或 :hover 添加 */
+  font-size: 12px;
+  color: #999;
 }
-
 
 /* 快捷功能模块样式 */
 .function-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* 改为左对齐，更像示例图 */
-   padding-top: 10px; /* 与标题分隔线的间距 */
+  justify-content: flex-start;
+  padding-top: 10px;
 }
 
 .function-item {
-  width: 25%; /* 调整宽度，使其在一行显示4个或更多 */
-  margin-bottom: 15px; /* 底部间距 */
+  width: 25%;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center; /* 文字居中 */
+  text-align: center;
 }
 .icon-wrapper {
-    width: 50px; /* 图标容器大小 */
-    height: 50px;
-    /* 将这里的背景色从 #e0f0e3 改为白色或其他颜色 */
-    background-color: #ffffff; /* 方案一：改为白色 */
-    /* 或者 */
-    /* background-color: #f8f8f8; */ /* 方案二：改为非常浅的灰色 */
-    /* 或者，如果您想完全去掉圆形背景，可以注释掉或删除 background-color 这一行 */
-    /* background-color: transparent; */
-
-
-    border-radius: 50%; /* 圆形背景 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5px; /* 图标与文字间距 */
-     /* 可以添加一个细边框，增加层次感 */
-     /* border: 1px solid #eee; */
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
 }
 .icon {
-  width: 30px; /* 图标实际大小 */
+  width: 30px;
   height: 30px;
 }
 
 .label {
-  font-size: 12px; /* 调整字体大小 */
+  font-size: 12px;
   color: #333;
-  padding: 0 5px; /* 防止文字过长溢出 */
+  padding: 0 5px;
 }
-
 
 /* 历史发展主题模块样式 (横向滚动卡片) */
 .theme-cards-scroll {
-    white-space: nowrap; /* 关键：使内容不换行 */
-    width: 100%;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .theme-card {
-    display: inline-block; /* 使卡片水平排列 */
-    width: 150px; /* 卡片宽度 */
-    margin-right: 10px; /* 卡片间距 */
-    border-radius: 10px;
-    overflow: hidden; /* 确保图片圆角 */
-    position: relative; /* 用于文字叠加 */
-    background-color: #fff; /* 防止图片未加载时的空白 */
-     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+  display: inline-block;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .theme-card:last-child {
-    margin-right: 0; /* 最后一个卡片无右侧间距 */
+  margin-right: 0;
 }
 
 .card-img {
-    width: 100%;
-    height: 100px; /* 图片高度 */
-    display: block; /* 消除图片底部的额外空间 */
-    object-fit: cover;
+  width: 100%;
+  height: 100px;
+  display: block;
+  object-fit: cover;
 }
 
 .card-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); /* 底部渐变蒙层 */
-    padding: 10px;
-    color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  padding: 10px;
+  color: #fff;
 }
 .card-title {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    white-space: normal; /* 允许换行 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-     margin-bottom: 2px;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
 }
 .card-subtitle {
-    display: block;
-    font-size: 10px;
-     white-space: normal; /* 允许换行 */
-     overflow: hidden;
-    text-overflow: ellipsis;
-    color: #ddd;
+  display: block;
+  font-size: 10px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ddd;
 }
 
 /* 发展数据快览模块样式 */
 .data-overview-card {
-    display: flex;
-    justify-content: space-around; /* 数据项均匀分布 */
-    padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
 }
 .data-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .data-value {
-    font-size: 16px;
-    font-weight: bold;
-    color: #1c85e5; /* 蓝色强调色 */
-     margin-bottom: 3px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1c85e5;
+  margin-bottom: 3px;
 }
 .data-label {
-    font-size: 12px;
-    color: #666;
+  font-size: 12px;
+  color: #666;
 }
 
 /* 重点建设成果模块样式 (列表) */
 .construction-list .construction-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
 }
 .construction-list .construction-item:last-child {
-    border-bottom: none; /* 最后一个无底线 */
+  border-bottom: none;
 }
 .item-label {
-    font-size: 14px;
-    color: #333;
-     flex: 1; /* 占据剩余空间 */
+  font-size: 14px;
+  color: #333;
+  flex: 1;
 }
 .item-arrow {
-    font-size: 14px;
-    color: #999;
-    margin-left: 10px; /* 箭头左侧间距 */
+  font-size: 14px;
+  color: #999;
+  margin-left: 10px;
 }
-
 
 /* 历史文化讲堂模块样式 (带图片的列表) */
 .culture-list .culture-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
 }
 .culture-list .culture-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 .culture-img {
-    width: 60px;
-    height: 40px;
-    border-radius: 6px;
-    margin-right: 10px;
-    object-fit: cover;
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  margin-right: 10px;
+  object-fit: cover;
 }
 .culture-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .culture-title {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 2px;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 2px;
 }
 .culture-source {
-    font-size: 11px;
-    color: #999;
+  font-size: 11px;
+  color: #999;
 }
-
 </style>
